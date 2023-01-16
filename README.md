@@ -1,5 +1,5 @@
 
-# *Accident-Analyzer*: :car: :map: Understanding Vehicle Accident Patterns in the United States
+# *Accident-Analyzer*: :car: :world_map: Understanding Vehicle Accident Patterns in the United States
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
