@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>CSE 578 Project - CSE 578 - Fall 2022</title>
+
+        <!--D3 v7-->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+
+        <!--Leaflet-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+        <!--Geography-->
+        <script src="geography/states.js"></script>
+        <script src="geography/counties.js"></script>
+        <script src="geography/regions.js"></script>
+
+        <!--JS-->
+        <!--<script src="NMF/src/index.js"></script>-->
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+        <script src="js/map-view.js"></script>
+        <script src="js/hotspot-view.js"></script>
+        <script src="js/cumulative-temporal-view.js"></script>
+        <script src="js/global-temporal-view.js"></script>
+        <script src="js/filter-widget-view.js"></script>
+        <script src="js/ranking-type-view.js"></script>
+        <script src="js/radial-type-view.js"></script>
+        <script src="js/database.js"></script>
+        <script src="js/main.js"></script>
+
+        <link rel="stylesheet" href="css/main.css"/>
+
+    </head>
+    <body>
+        <div class="container-row flex">
+          <div style="width:1206px;background-color:rgb(65,73,84);justify-content:space-between;margin-top:0px;" id="control-menu" class="view flex">
+            <p style="font-family: arial; color:whitesmoke;margin-left:20px;font-size:16px;" onmouseover="title_annotate()" onmouseout="reset_annotation()"><em>Accident-Analyzer:</em> Understanding Vehicle Accident Patterns in the United States &nbsp; <a href="https://arxiv.org/abs/2010.06517" target="_blank" class="info-icon">&#9432;</a></p>
+            <div style="margin-right:20px;" class="flex">
+              <label for="annotation-check" style="font-family: arial; color:whitesmoke;font-size:16px;margin-right:5px;">Graph Annotations</label>
+              <input type="checkbox" id="annotation-check" name="annotation-check" onchange="annotation_check(this.checked)">
+            </div>
+          </div>
+        </div>
+        <div id="container">
+          <div class="container-row flex">
+            <div id="map-view" class="view" onmouseover="map_view.annotate()" onmouseout="reset_annotation()"></div>
+            <div style="width:625px;" class="flex" onmouseover="hotspot_view.annotate()" onmouseout="reset_annotation()">
+              <svg height="80" width="612" style="margin: 5px 5px 3px 5px;" id="hotspot-graph" class="view"></svg>
+              <div style="width:200px;margin: 3px 3px 5px 5px;" class="view">
+                <svg height="200" width="200" id="hotspot-map-1"></svg>
+                <svg height="100" width="200" id="hotspot-gauge-1"></svg>
+              </div>
+              <div style="width:200px;margin: 3px 3px 5px 3px;" class="view">
+                <svg height="200" width="200" id="hotspot-map-2"></svg>
+                <svg height="100" width="200" id="hotspot-gauge-2"></svg>
+              </div>
+              <div style="width:200px;margin: 3px 5px 5px 3px;" class="view">
+                <svg height="200" width="200" id="hotspot-map-3"></svg>
+                <svg height="100" width="200" id="hotspot-gauge-3"></svg>
+              </div>
+            </div>
+          </div>
+          <div style="position:relative;" class="container-row flex">
+            <div class="flex view">
+              <svg height="200" width="235" id="cumulative-month-view" onmouseover="cumulative_month_view.annotate()" onmouseout="reset_annotation()"></svg>
+              <svg height="200" width="150" id="cumulative-week-view" onmouseover="cumulative_week_view.annotate()" onmouseout="reset_annotation()"></svg>
+              <svg style="margin-right:10px;" height="200" width="100" id="cumulative-day-view" onmouseover="cumulative_day_view.annotate()" onmouseout="reset_annotation()"></svg>
+            </div>
+            <div class="flex">
+            </div>
+            <div style="position:relative;" onmouseover="global_temporal_view.annotate()" onmouseout="reset_annotation()">
+              <svg height="200" width="700" id="global-temporal-view" class="view"></svg>
+              <div id="gtv-reset" onclick="global_temporal_view.reset_domain()" class="info">
+                <p style="margin:5px;">Reset</p>
+              </div>
+            </div>
+          </div>
+          <div class="container-row flex">
+            <div style="width:250px;" class="view">
+              <svg height="200" width="250" id="filter-year-view" onmouseover="filter_year_view.annotate()" onmouseout="reset_annotation()"></svg>
+              <svg height="200" width="250" id="filter-weather-view" onmouseover="filter_weather_view.annotate()" onmouseout="reset_annotation()"></svg>
+            </div>
+            <div style="width:960px;" id="type-view" class="flex">
+              <svg height="150" width="950" id="ranking-type-view" class="view" onmouseover="ranking_type_view.annotate()" onmouseout="reset_annotation()"></svg>
+              <div class="view flex" onmouseover="radial_type_view.annotate()" onmouseout="reset_annotation()">
+                <svg height="250" width="190" id="radial-Cloudy-view"></svg>
+                <svg height="250" width="190" id="radial-Rain-view"></svg>
+                <svg height="250" width="190" id="radial-Snow-view"></svg>
+                <svg height="250" width="190" id="radial-Thunder-view"></svg>
+                <svg height="250" width="190" id="radial-Visibility-view"></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tooltip" class="info flex" style="padding: 0px;">
+          <h4 style="text-align:center;margin:5px;">Graph Annotation Tooltip</h4>
+          <p>Hover over a view to see annotations.</p>
+        </div>
+        <div id="loading-panel">
+          <p><span id="loading-panel-text">Loading</span><span id="loading-dot-1">.</span><span id="loading-dot-2">.</span><span id="loading-dot-3">.</span></p>
+        </div>
+    </body>
+</html>

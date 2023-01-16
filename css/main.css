@@ -1,0 +1,173 @@
+
+body {
+  background-color: rgb(240,240,240);
+}
+
+.hoverable {
+  cursor: default;
+}
+
+.leaflet-container {
+  height: 390px;
+  width: 580px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.flex {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+}
+
+.view {
+  background-color: white;
+  margin: 5px;
+  box-shadow: 2px 2px rgba(0,0,0,0.1);
+}
+
+.view-label {
+  text-anchor: middle;
+  alignment-baseline: middle;
+  fill: blue;
+  font: 20px arial;
+}
+
+.info {
+  padding: 6px 8px;
+  font: 16px Arial;
+  background: rgba(255,255,255,0.8);
+  border-radius: 5px;
+  border: 2px solid rgba(120,120,120,0.5);
+}
+
+.info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+#hv-y-axis text {
+display:none;
+}
+
+#hv-y-axis line {
+display:none;
+}
+
+#gtv-reset:hover {
+border: 2px solid rgba(120,120,120,0.4);
+cursor: pointer;
+}
+
+#gtv-reset:hover p {
+color: rgb(100,100,100);
+}
+
+#gtv-reset {
+position:absolute;
+padding: 0px;
+left:50px;
+top:20px;
+display:none;
+}
+
+.leaflet-interactive
+{
+cursor: initial;
+}
+
+.mv-tab span:hover {
+cursor: pointer;
+color: rgb(100,100,100);
+}
+
+#tooltip {
+position: absolute;
+z-index: 1000;
+width: 230px;
+background-color: white;
+top: 0px;
+left: 0px;
+opacity: 0;
+overflow:hidden;
+max-width: 0;
+max-height: 0;
+}
+
+#tooltip p {
+text-align: center;
+margin: 5px;
+}
+
+.info-icon {
+text-decoration: none;
+color: white;
+}
+
+.info-icon:hover {
+cursor: pointer;
+color: rgb(200,200,200);
+}
+
+#loading-dot-1
+{
+animation-name: anim-dot-1;
+animation-duration: 1s;
+animation-iteration-count: infinite;
+}
+
+@keyframes anim-dot-1 {
+0%   {opacity: 0}
+25%  {opacity: 1}
+50%  {opacity: 1}
+100% {opacity: 1}
+}
+
+#loading-dot-2
+{
+animation-name: anim-dot-2;
+animation-duration: 1s;
+animation-iteration-count: infinite;
+}
+
+@keyframes anim-dot-2 {
+0%   {opacity: 0}
+25%  {opacity: 0}
+50%  {opacity: 1}
+100% {opacity: 1}
+}
+
+#loading-dot-3
+{
+animation-name: anim-dot-3;
+animation-duration: 1s;
+animation-iteration-count: infinite;
+}
+
+@keyframes anim-dot-3 {
+0%   {opacity: 0}
+25%  {opacity: 0}
+50%  {opacity: 0}
+100% {opacity: 1}
+}
+
+#loading-panel {
+position: fixed;
+top: 50vh;
+left: 50vw;
+transform: translate(-50%,-50%);
+background-color: rgba(150,150,150,0.6);
+z-index: 1001;
+overflow: hidden;
+max-width: 0;
+max-height: 0;
+}
+
+#loading-panel p {
+font-size: 40px;
+font-family: arial;
+color: white;
+text-align: center;
+margin: 20px;
+}
